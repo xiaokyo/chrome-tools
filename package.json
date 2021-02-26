@@ -1,0 +1,40 @@
+{
+  "name": "tapd-extension",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/tapd_tools.js",
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-layui-layer": "^0.0.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "autoprefixer": "^10.2.3",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-import": "^1.13.3",
+    "copy-webpack-plugin": "^7.0.0",
+    "css-loader": "^5.0.1",
+    "postcss-loader": "^4.1.0",
+    "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.16.0",
+    "webpack-chrome-extension-reloader": "^1.3.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "scripts": {
+    "dev": "webpack --mode=development --watch",
+    "build": "webpack --mode=production"
+  },
+  "author": "",
+  "license": "ISC",
+  "browserList": [
+    ">0%",
+    "last 4 versions",
+    "Firefox ESR",
+    "not ie < 8"
+  ]
+}

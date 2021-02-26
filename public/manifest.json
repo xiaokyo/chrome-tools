@@ -1,0 +1,31 @@
+{
+    "manifest_version": 2,
+    "name": "Tapd tools",
+    "description": "tapd quickly operations",
+    "version": "1.1",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "tabs"
+    ],
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.tapd.cn/*"
+            ],
+            "js": [
+                "content-script.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_popup": "popup.html"
+    }
+}

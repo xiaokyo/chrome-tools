@@ -1,0 +1,43 @@
+.main {
+    position: fixed;
+    z-index: 1001;
+    width: 45px;
+    height: 45px;
+    right: 30px;
+    bottom: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 4px #ccc;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.main:hover {
+    box-shadow: 0 0 10px #ccc;
+}
+
+.container {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container .btn {
+    padding: 5px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+    box-shadow: 0 0 4px #ccc;
+    transition: all .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    color: #333;
+    margin:4px;
+}
+
+.container .btn:hover {
+    box-shadow: 0 0 20px #ccc;
+}
