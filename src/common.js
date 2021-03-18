@@ -64,7 +64,6 @@ export function request({
 export function copyText(str) {
   const input = document.createElement("div");
   input.setAttribute("contenteditable", "true");
-  input.style.display = "none";
   document.body.appendChild(input);
   input.innerText = str;
 
