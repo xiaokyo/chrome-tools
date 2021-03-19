@@ -1,20 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Layer from "react-layui-layer";
 
 import s from "./global.css";
 import { copySpendReport } from "./toolFuns/getDaySpend";
+import { updateHandlePerson } from "./toolFuns/updateBillInfo";
 
 export default () => {
   const [isShow, setShow] = useState(false);
-
-  useEffect(() => {
-    const queryUrl = location.href;
-    const reportUrl = sessionStorage.getItem("spendReportUrl");
-
-    if (queryUrl === reportUrl) {
-      setShow(true);
-    }
-  }, []);
 
   return (
     <>
@@ -32,6 +24,9 @@ export default () => {
         <div className={s.container}>
           <div className={s.btn} onClick={() => copySpendReport()}>
             获取日报
+          </div>
+          <div className={s.btn} onClick={() => updateHandlePerson()}>
+            批量修改处理人
           </div>
         </div>
       </Layer>

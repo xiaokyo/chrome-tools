@@ -32,7 +32,7 @@ export const getDaySpendUrl = (username, startDate, endDate) => {
 export function request({
   method = "GET",
   url = "",
-  success = (response) => {},
+  success = () => {},
   header = {
     "Content-type": "application/json; utf-8",
   },
