@@ -25,9 +25,9 @@ export default () => {
           <div className={s.btn} onClick={() => copySpendReport()}>
             获取日报
           </div>
-          <div className={s.btn} onClick={() => updateHandlePerson()}>
-            批量修改处理人
-          </div>
+          {/* <div className={s.btn} onClick={() => updateHandlePerson()}>
+            批量修改处理人(自用)
+          </div> */}
         </div>
       </Layer>
     </>

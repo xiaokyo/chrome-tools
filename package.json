@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/tapd_tools.js",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-layui-layer": "^0.0.4"

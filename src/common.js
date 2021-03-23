@@ -21,18 +21,16 @@ export const getDateToString = () => {
  */
 export const getDaySpendUrl = (username, startDate, endDate) => {
   const nowTime = getDateToString();
-  return `https://www.tapd.cn/my_dashboard/single_member_job_detail?card_id=1141320568001000607&spent_begin=${
-    startDate ?? nowTime
-  }&spent_end=${
-    endDate ?? nowTime
-  }&selected_workspace=61438371|66473603&owner=${encodeURI(username)}`;
+  return `https://www.tapd.cn/my_dashboard/single_member_job_detail?card_id=1141320568001000607&spent_begin=${startDate ?? nowTime
+    }&spent_end=${endDate ?? nowTime
+    }&selected_workspace=61438371|66473603&owner=${encodeURI(username)}`;
 };
 
 /** 请求 */
 export function request({
   method = "GET",
   url = "",
-  success = () => {},
+  success = () => { },
   header = {
     "Content-type": "application/json; utf-8",
   },
@@ -62,25 +60,5 @@ export function request({
  * @param {string} str 复制的文本
  */
 export function copyText(str) {
-  const input = document.createElement("div");
-  input.setAttribute("contenteditable", "true");
-  document.body.appendChild(input);
-  input.innerText = str;
-
-  const selectedSelectionText = () => {
-    const range = document.createRange();
-    range.selectNodeContents(input);
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
-  };
-
-  const copyCmd = () => document.execCommand("copy");
-
-  selectedSelectionText();
-  const copyFlag = copyCmd();
-  if (copyFlag) {
-    // alert('复制成功:' + str);
-    alert("复制成功:\n" + str);
-  }
-  document.body.removeChild(input);
+  navigator.clipboard.writeText(str).then(() => alert(str)).catch((err) => alert('err:', err))
 }
