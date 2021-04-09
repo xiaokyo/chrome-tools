@@ -1,5 +1,6 @@
-import { copyText, getDaySpendUrl, getDateToString, request, getCurrentLoginName } from "../common";
+import { copyText, getDaySpendUrl, getDateToString, request, getCurrentLoginName } from "@/common";
 import cheerio from 'cheerio';
+import store from '@/utils/store'
 
 /**
  * 复制花费报告
@@ -7,7 +8,6 @@ import cheerio from 'cheerio';
  */
 export const copySpendReport = () => {
   const username = getCurrentLoginName()
-  if (!username) return alert("你未登录");
   const startDate = prompt("开始时间", getDateToString());
   const endDate = prompt("结束时间", getDateToString());
   const url = getDaySpendUrl(username, startDate, endDate);
@@ -69,19 +69,19 @@ export const clickCopySpendReport = (copyContent) => {
 }
 
 /**
- * 获取剩余规模和总规模
+ * 获取剩余规模和总规模和完成率
  */
 export const getRemainAndTotalHour = () => {
-  let remainUrl = localStorage.getItem('@tapd-tools/remainUrl')
+  let remainUrl = store.get('remainUrl') ?? ''
   if (remainUrl.indexOf('http') === -1) remainUrl = prompt("剩余工时链接", '')
 
-  let totalUrl = localStorage.getItem('@tapd-tools/totalUrl')
+  let totalUrl = store.get('totalUrl') ?? ''
   if (totalUrl.indexOf('http') === -1) totalUrl = prompt("总工时链接", '')
 
-  console.log(remainUrl, totalUrl)
-
-  localStorage.setItem('@tapd-tools/remainUrl', remainUrl)
-  localStorage.setItem('@tapd-tools/totalUrl', totalUrl)
+  store.set({
+    remainUrl,
+    totalUrl
+  })
 
   const getNumByNode = (content) => {
     const $ = cheerio.load(content)

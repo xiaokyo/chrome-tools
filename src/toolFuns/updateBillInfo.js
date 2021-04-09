@@ -11,7 +11,7 @@
 // data[field]: owner
 // data[value]: 郑温剑;
 
-import { request } from "../common";
+import { request } from "@/common";
 
 /**
  * 强制修改单子内部信息
