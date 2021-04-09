@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Layer from "react-layui-layer";
 
 import s from "./global.css";
-import { copySpendReport } from "./toolFuns/getDaySpend";
+import { copySpendReport, getRemainAndTotalHour } from "./toolFuns/getDaySpend";
 import { updateHandlePerson } from "./toolFuns/updateBillInfo";
 
 export default () => {
@@ -28,6 +28,10 @@ export default () => {
           {/* <div className={s.btn} onClick={() => updateHandlePerson()}>
             批量修改处理人(自用)
           </div> */}
+
+          <div className={s.btn} onClick={() => getRemainAndTotalHour()}>
+            获取剩余工时和总工时
+          </div>
         </div>
       </Layer>
     </>

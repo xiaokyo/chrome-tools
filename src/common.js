@@ -1,4 +1,18 @@
 /**
+ * 获取用户名
+ * @returns 登陆的用户名
+ */
+export const getCurrentLoginName = () => {
+  let result = ''
+  const usernameDom = document.getElementsByClassName("avatar-text-default")[0];
+  if (usernameDom) {
+    result = usernameDom.getAttribute("title");
+  }
+  if (!result) throw new Error('未登录')
+  return result
+}
+
+/**
  * 返回当前时间
  * @returns  2020-10-05
  */

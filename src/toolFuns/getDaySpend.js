@@ -1,4 +1,4 @@
-import { copyText, getDaySpendUrl, getDateToString, request } from "../common";
+import { copyText, getDaySpendUrl, getDateToString, request, getCurrentLoginName } from "../common";
 import cheerio from 'cheerio';
 
 /**
@@ -6,9 +6,8 @@ import cheerio from 'cheerio';
  * @returns
  */
 export const copySpendReport = () => {
-  const usernameDom = document.getElementsByClassName("avatar-text-default")[0];
-  if (!usernameDom) return alert("你未登录");
-  const username = usernameDom.getAttribute("title");
+  const username = getCurrentLoginName()
+  if (!username) return alert("你未登录");
   const startDate = prompt("开始时间", getDateToString());
   const endDate = prompt("结束时间", getDateToString());
   const url = getDaySpendUrl(username, startDate, endDate);
@@ -67,4 +66,51 @@ export const clickCopySpendReport = (copyContent) => {
   });
 
   copyText(daySpendText);
+}
+
+/**
+ * 获取剩余规模和总规模
+ */
+export const getRemainAndTotalHour = () => {
+  let remainUrl = localStorage.getItem('@tapd-tools/remainUrl')
+  if (remainUrl.indexOf('http') === -1) remainUrl = prompt("剩余工时链接", '')
+
+  let totalUrl = localStorage.getItem('@tapd-tools/totalUrl')
+  if (totalUrl.indexOf('http') === -1) totalUrl = prompt("总工时链接", '')
+
+  console.log(remainUrl, totalUrl)
+
+  localStorage.setItem('@tapd-tools/remainUrl', remainUrl)
+  localStorage.setItem('@tapd-tools/totalUrl', totalUrl)
+
+  const getNumByNode = (content) => {
+    const $ = cheerio.load(content)
+    const totalElem = $('.total').eq(0)
+    const tdElem = totalElem.find('td').eq(2)
+    return tdElem.text()
+  }
+
+  request({
+    method: "GET",
+    url: remainUrl,
+    success: (remainContent) => {
+      const remainText = getNumByNode(remainContent)
+      request({
+        method: "GET",
+        url: totalUrl,
+        success: (totalContent) => {
+          const totalText = getNumByNode(totalContent)
+
+          let percentage = Number(totalText) - Number(remainText)
+          percentage = percentage / Number(totalText)
+          percentage = Number(percentage).toFixed(2)
+          percentage = `${percentage}%`.replace(/0\./, '')
+          console.log(remainText, totalText, percentage)
+
+          copyText(`${remainText}  ${totalText}  ${percentage}`)
+        }
+      })
+
+    }
+  })
 }
