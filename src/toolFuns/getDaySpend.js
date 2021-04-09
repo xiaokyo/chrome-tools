@@ -107,7 +107,7 @@ export const getRemainAndTotalHour = () => {
           percentage = `${percentage}%`.replace(/0\./, '')
           console.log(remainText, totalText, percentage)
 
-          copyText(`${remainText}  ${totalText}  ${percentage}`)
+          copyText(`剩余规模：${remainText}  总规模：${totalText}  完成率：${percentage}`)
         }
       })
 
