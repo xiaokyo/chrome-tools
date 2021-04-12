@@ -51,23 +51,29 @@ export const updateBillInfo = ({ billId, key, value, type, work_space_id }) => {
  * 修改处理人
  */
 export const updateHandlePerson = () => {
-  const tbody = document.querySelector("table#stories_tasks_content tbody");
-  const trs = tbody.querySelectorAll("tr");
-
-  const oldPerson = prompt("原处理人", "");
+  const oldPerson = prompt("原处理人", "郑温剑");
   if (!oldPerson) return alert("请输入原处理人");
   const newPerson = prompt("新处理人", "郑温剑");
   if (!newPerson) return alert("请输入处理人");
 
-  trs.forEach((tr) => {
-    const rowId = tr.getAttribute("id");
-    const rowType = tr.getAttribute("type");
-    const ownerTd = document.getElementById(`${rowId}owner`);
+  const paths = location.pathname.split('/')
+  const iterationId = paths[paths.length - 1]
 
+  const tbody = document.querySelector(`table#${oldPerson}_${iterationId}_items tbody`);
+  const trs = tbody.querySelectorAll("tr");
+
+  trs.forEach((tr) => {
+    // 郑温剑_story_1166473603001087796
+    const idAttrVal = tr.getAttribute('id').split('_')
+    const rowId = idAttrVal[idAttrVal.length - 1];
+    const rowType = tr.getAttribute("type");
+    const ownerTd = document.getElementById(`${oldPerson}_${rowId}owner`); // 郑温剑_1166473603001087796owner
+    const status = document.getElementById(`${oldPerson}_${rowType}_status_${rowId}`).getAttribute('title') // 郑温剑_story_status_1166473603001087796
     // data-editable-value="戚小龙smalldragon;"
     const oldOwner = ownerTd.getAttribute("data-editable-value");
 
-    if (oldOwner.indexOf(oldPerson) > -1) {
+    if (oldOwner.indexOf(oldPerson) > -1 && status !== '已实现') {
+      console.log('所有人', rowId, oldOwner, status)
       // 改成我的
       updateBillInfo({
         billId: rowId,

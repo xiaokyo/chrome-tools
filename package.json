@@ -2,13 +2,12 @@
   "name": "tapd-extension",
   "version": "1.0.0",
   "description": "",
-  "main": "src/tapd_tools.js",
+  "main": "src/app.js",
   "dependencies": {
     "buffer": "^6.0.3",
     "cheerio": "^1.0.0-rc.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-layui-layer": "^0.0.4",
     "serialize-javascript": "^5.0.1"
   },
   "devDependencies": {
