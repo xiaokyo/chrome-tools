@@ -16,10 +16,7 @@ module.exports = {
     },
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, './src'),
-
-            // 不需要polyfill
-            // 'serialize-javascript': false
+            '@': path.resolve(__dirname, './src')
         },
         fallback: {
             'buffer': require.resolve('buffer/')

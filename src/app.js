@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
 import s from "./global.css";
 import { copySpendReport, getRemainAndTotalHour } from "./toolFuns/getDaySpend";
 import { updateHandlePerson } from "./toolFuns/updateBillInfo";
 
-export default () => {
-  // const [isShow, setShow] = useState(false);
+const App = () => {
 
   return (
     <>
@@ -30,3 +29,5 @@ export default () => {
     </>
   );
 };
+
+export default App
