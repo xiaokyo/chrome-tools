@@ -12,27 +12,21 @@
 // data[value]: 郑温剑;
 
 import { request } from "@/common";
+import { getUrlencodedData } from '@/utils'
 
 /**
  * 强制修改单子内部信息
  * @param {object} param0 一些参数
  */
 export const updateBillInfo = ({ billId, key, value, type, work_space_id }) => {
-  const params = {
+  const data = getUrlencodedData({
     "data[id]": billId,
     "data[type]": type,
     "data[field]": key,
     "data[value]": value,
-  };
+  });
 
   const work_id = work_space_id ?? "66473603"; // 默认cjDropshipping
-
-  let data = "";
-  Object.keys(params).forEach((key, index) => {
-    const value = params[key];
-    const s = index === 0 ? "" : "&";
-    data += `${s}${key}=${value}`;
-  });
 
   request({
     method: "POST",

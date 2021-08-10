@@ -1,8 +1,17 @@
 import React from "react";
+import { copySpendReport } from "./toolFuns/getDaySpend";
+import fillPointNum from './toolFuns/fillPointNum'
 
 import s from "./global.css";
-import { copySpendReport, getRemainAndTotalHour } from "./toolFuns/getDaySpend";
-import { updateHandlePerson } from "./toolFuns/updateBillInfo";
+
+const Btn = ({
+  name = '',
+  ...props
+}) => (
+  <div className={s.btn} {...props}>
+    {name}
+  </div>
+)
 
 const App = () => {
 
@@ -12,17 +21,10 @@ const App = () => {
         <div className={s.con}>
           插件
           <div className={s.container}>
-            <div className={s.btn} onClick={() => copySpendReport()}>
-              获取日报
-          </div>
-
-            <div className={s.btn} onClick={() => getRemainAndTotalHour()}>
-              获取剩余工时和总工时
-          </div>
-
-            <div className={s.btn} onClick={() => updateHandlePerson()}>
-              批量修改处理人(自用, 不知道的勿动，后果自负)
-          </div>
+            <div className={s.box}>
+              <Btn name="获取日报" onClick={() => copySpendReport()} />
+              <Btn name="填写功能点" onClick={fillPointNum}></Btn>
+            </div>
           </div>
         </div>
       </div>

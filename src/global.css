@@ -29,13 +29,12 @@
 }
 
 .main:hover .container {
-    display: flex;
+    display: block;
 }
 
 .container {
     padding: 20px;
     display: none;
-    flex-wrap: wrap;
     width: 600px;
     height: 350px;
     position: absolute;
@@ -44,7 +43,11 @@
     background-color: #fff;
     box-shadow: 0 0 4px #ccc;
     border-radius: 4px;
-    align-items: flex-start;
+}
+
+.box {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .container .btn {
