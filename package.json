@@ -4,14 +4,17 @@
   "description": "",
   "main": "src/app.js",
   "dependencies": {
+    "@babel/runtime": "^7.14.8",
     "buffer": "^6.0.3",
     "cheerio": "^1.0.0-rc.5",
+    "lottie-web": "^5.7.12",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "serialize-javascript": "^5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-runtime": "^7.15.0",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "autoprefixer": "^10.2.3",

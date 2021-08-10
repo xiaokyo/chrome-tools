@@ -7,16 +7,19 @@ import store from '@/utils/store'
  * @returns
  */
 export const copySpendReport = () => {
-  const username = getCurrentLoginName()
-  const startDate = prompt("开始时间", getDateToString());
-  const endDate = prompt("结束时间", getDateToString());
-  const url = getDaySpendUrl(username, startDate, endDate);
-  request({
-    method: "GET",
-    url,
-    success: (content) => {
-      clickCopySpendReport(content)
-    }
+  return new Promise(resolve => {
+    const username = getCurrentLoginName()
+    const startDate = prompt("开始时间", getDateToString());
+    const endDate = prompt("结束时间", getDateToString());
+    const url = getDaySpendUrl(username, startDate, endDate);
+    request({
+      method: "GET",
+      url,
+      success: (content) => {
+        clickCopySpendReport(content)
+        resolve(true)
+      }
+    })
   })
 };
 

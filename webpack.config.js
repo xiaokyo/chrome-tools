@@ -4,6 +4,7 @@ const ChromeExtensionReloader = require('webpack-chrome-extension-reloader');
 
 module.exports = {
     mode: "development",
+    devtool: false,
     entry: {
         "content-script": [path.resolve(__dirname, "./src/content-script")],
         "background": [path.resolve(__dirname, "./src/background")]
@@ -18,9 +19,7 @@ module.exports = {
         alias: {
             '@': path.resolve(__dirname, './src')
         },
-        fallback: {
-            'buffer': require.resolve('buffer/')
-        }
+        extensions: ["*", ".jsx", ".js", ".json"],
     },
     module: {
         rules: [
@@ -30,7 +29,15 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env', '@babel/preset-react']
+                        presets: ['@babel/preset-env', '@babel/preset-react'],
+                        plugins: [
+                            [
+                                "@babel/plugin-transform-runtime",
+                                {
+                                    "regenerator": true,
+                                }
+                            ],
+                        ]
                     }
                 }
             },
@@ -57,7 +64,7 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(png|jpg|gif)$/,
+                test: /\.(png|jpg|gif|svg)$/,
                 use: [
                     {
                         loader: "url-loader",
