@@ -6,10 +6,14 @@ import s from "./global.css";
 
 import Btn from './components/Button'
 import Loading from "./components/Loading";
+import useDrag from "./hooks/useDrag";
 
 const App = () => {
 
   const [loading, setLoading] = useState(false)
+
+  // 拖动
+  useDrag('drag-box')
 
   const promiseLoadingFun = (fun) => {
     return async (...args) => {
@@ -37,7 +41,7 @@ const App = () => {
 
   return (
     <>
-      <div className={s.main}>
+      <div id="drag-box" className={s.main}>
         <div className={s.con}>
           {
             loading && <Loading />
