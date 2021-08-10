@@ -11,11 +11,29 @@ const App = () => {
 
   const [loading, setLoading] = useState(false)
 
-  const promiseLoadingFun = async (fun) => {
-    setLoading(true)
-    await fun()
-    setLoading(false)
+  const promiseLoadingFun = (fun) => {
+    return async (...args) => {
+      setLoading(true)
+      await fun(...args)
+      setLoading(false)
+    }
   }
+
+  const toolBtns = [
+    {
+      name: '获取日报',
+      fun: copySpendReport,
+    },
+    {
+      name: '指定日期日报',
+      fun: copySpendReport,
+      args: 'date'
+    },
+    {
+      name: '填写功能点',
+      fun: fillPointNum,
+    }
+  ]
 
   return (
     <>
@@ -30,8 +48,9 @@ const App = () => {
                 插件
                 <div className={s.container}>
                   <div className={s.box}>
-                    <Btn name="获取日报" onClick={() => promiseLoadingFun(copySpendReport)} />
-                    <Btn name="填写功能点" onClick={() => promiseLoadingFun(fillPointNum)}></Btn>
+                    {
+                      toolBtns.map(_ => <Btn key={_.name} name={_.name} onClick={() => promiseLoadingFun(_.fun)(_.args)} />)
+                    }
                   </div>
                 </div>
               </>

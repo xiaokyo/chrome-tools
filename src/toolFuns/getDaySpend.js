@@ -6,11 +6,15 @@ import store from '@/utils/store'
  * 复制花费报告
  * @returns
  */
-export const copySpendReport = () => {
+export const copySpendReport = (type = 'today') => {
   return new Promise(resolve => {
     const username = getCurrentLoginName()
-    const startDate = prompt("开始时间", getDateToString());
-    const endDate = prompt("结束时间", getDateToString());
+    let startDate = getDateToString()
+    let endDate = startDate
+    if(type == 'date') {
+      startDate = prompt("开始时间", startDate);
+      endDate = prompt("结束时间", startDate);
+    }
     const url = getDaySpendUrl(username, startDate, endDate);
     request({
       method: "GET",
@@ -62,13 +66,14 @@ export const clickCopySpendReport = (copyContent) => {
       }
     }
   }
-  let daySpendText = ``;
+  let daySpendText = ``, sumSpend = 0;
   tables.forEach((item, index) => {
     daySpendText += `${index > 0 ? "\r\n" : ""}${index + 1}.【${item.title}】 ${item.link
       } 花费${item.spend} \r\n`;
+    sumSpend += Number(item.spend)
   });
 
-  copyText(daySpendText);
+  copyText(`总花费: ${sumSpend}\r\n${daySpendText}`);
 }
 
 /**
