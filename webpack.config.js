@@ -2,9 +2,21 @@ const path = require('path')
 const CopyPlugin = require("copy-webpack-plugin");
 const ChromeExtensionReloader = require('webpack-chrome-extension-reloader');
 
+const isDev = process.env.NODE_ENV == 'development'
+
+const plugins = [
+    new CopyPlugin({
+        patterns: [
+            { from: "public", to: "./" },
+        ],
+    }),
+]
+if (isDev) {
+    plugins.push(new ChromeExtensionReloader())
+}
+
 module.exports = {
-    mode: "development",
-    devtool: false,
+    mode: isDev ? "development" : 'production',
     entry: {
         "content-script": [path.resolve(__dirname, "./src/content-script")],
         "background": [path.resolve(__dirname, "./src/background")]
@@ -51,16 +63,6 @@ module.exports = {
                             modules: true
                         }
                     },
-                    {
-                        loader: "postcss-loader",
-                        options: {
-                            postcssOptions: {
-                                plugins: [
-                                    require('autoprefixer')()
-                                ]
-                            }
-                        }
-                    }
                 ],
             },
             {
@@ -76,15 +78,8 @@ module.exports = {
             },
         ]
     },
-    plugins: [
-        new CopyPlugin({
-            patterns: [
-                { from: "public", to: "./" },
-            ],
-        }),
-        new ChromeExtensionReloader()
-    ],
-    devServer: {
+    plugins,
+    devServer: isDev ? {
         writeToDisk: true
-    }
+    } : undefined
 }
