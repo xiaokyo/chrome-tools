@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { copySpendReport } from "./toolFuns/getDaySpend";
 import fillPointNum from './toolFuns/fillPointNum'
+import ChangeTapdStatus from './toolFuns/change-tapd-status'
 
 import s from "./global.css";
 
@@ -36,6 +37,15 @@ const App = () => {
     {
       name: '填写功能点',
       fun: fillPointNum,
+    },
+    {
+      name: '完成单子',
+      fun: ChangeTapdStatus,
+    },
+    {
+      name: '实现中单子',
+      fun: ChangeTapdStatus,
+      args: 'developing'
     }
   ]
 
