@@ -11,23 +11,38 @@ export default (status = "resolved") => {
   return new Promise((resolve) => {
     const $ = cheerio.load(document.body.innerHTML);
     const $trs = $("#story_list_content>tbody>tr");
+    const list = [];
     $trs.each(function (i, e) {
       if (i == 0) return; // 过滤第一个tr, 它是快速创建
 
       const id = $(e).attr("story_id");
       const checked = $(e).hasClass("checked-tr");
       if (checked) {
-        ApiChangeTapdStatus({
-          id,
-          status,
-          callback() {
-            console.log(id + ": success change status to " + status);
-          },
-        });
+        list.push(id);
       }
     });
 
-    resolve(true);
+    let count = 0;
+    function run() {
+      if (count >= list.length) {
+        alert("处理完成");
+        resolve(true);
+        location.reload();
+        return;
+      }
+
+      setTimeout(() => {
+        ApiChangeTapdStatus({
+          id: list[count],
+          status,
+          callback() {
+            count += 1;
+            run();
+          },
+        });
+      }, 1000);
+    }
+    run();
   });
 };
 
