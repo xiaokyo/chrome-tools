@@ -6,12 +6,12 @@ import store from '@/utils/store'
  * 复制花费报告
  * @returns
  */
-export const copySpendReport = (type = 'today') => {
+export const copySpendReport = ({ type = 'today', isCopy = true } = {}) => {
   return new Promise(resolve => {
     const username = getCurrentLoginName()
     let startDate = getDateToString()
     let endDate = startDate
-    if(type == 'date') {
+    if (type == 'date') {
       startDate = prompt("开始时间", startDate);
       endDate = prompt("结束时间", startDate);
     }
@@ -20,7 +20,7 @@ export const copySpendReport = (type = 'today') => {
       method: "GET",
       url,
       success: (content) => {
-        clickCopySpendReport(content)
+        clickCopySpendReport(content, isCopy)
         resolve(true)
       }
     })
@@ -31,7 +31,7 @@ export const copySpendReport = (type = 'today') => {
  * 处理用户点击copy
  * @returns
  */
-export const clickCopySpendReport = (copyContent) => {
+export const clickCopySpendReport = (copyContent, isCopy) => {
   console.log('run copy')
   if (!copyContent) {
     return
@@ -73,7 +73,11 @@ export const clickCopySpendReport = (copyContent) => {
     sumSpend += Number(item.spend)
   });
 
-  copyText(`总花费: ${sumSpend}\r\n${daySpendText}`);
+  const spendContent = `总花费: ${sumSpend}\r\n${daySpendText}`
+  if (isCopy)
+    copyText(spendContent);
+  else
+    alert(spendContent)
 }
 
 /**

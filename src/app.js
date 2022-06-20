@@ -26,13 +26,23 @@ const App = () => {
 
   const toolBtns = [
     {
+      name: '查看日报',
+      fun: copySpendReport,
+      args: {
+        type: 'today',
+        isCopy: false
+      }
+    },
+    {
       name: '获取日报',
       fun: copySpendReport,
     },
     {
       name: '指定日期日报',
       fun: copySpendReport,
-      args: 'date'
+      args: {
+        type: 'date'
+      }
     },
     {
       name: '填写功能点',
@@ -59,7 +69,7 @@ const App = () => {
           {
             !loading && (
               <>
-                插件
+                Plugins
                 <div className={s.container}>
                   <div className={s.box}>
                     {
