@@ -20,8 +20,9 @@ export const copySpendReport = ({ type = 'today', isCopy = true } = {}) => {
       method: "GET",
       url,
       success: (content) => {
-        clickCopySpendReport(content, isCopy)
-        resolve(true)
+        clickCopySpendReport(content, isCopy, function(res) {
+          resolve(res, content)
+        })
       }
     })
   })
@@ -31,7 +32,7 @@ export const copySpendReport = ({ type = 'today', isCopy = true } = {}) => {
  * 处理用户点击copy
  * @returns
  */
-export const clickCopySpendReport = (copyContent, isCopy) => {
+export const clickCopySpendReport = (copyContent, isCopy, cb) => {
   console.log('run copy')
   if (!copyContent) {
     return
@@ -76,8 +77,7 @@ export const clickCopySpendReport = (copyContent, isCopy) => {
   const spendContent = `总花费: ${sumSpend}\r\n${daySpendText}`
   if (isCopy)
     copyText(spendContent);
-  else
-    alert(spendContent)
+  cb?.(spendContent)
 }
 
 /**

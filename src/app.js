@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { copySpendReport } from "./toolFuns/getDaySpend";
 import fillPointNum from './toolFuns/fillPointNum'
 import ChangeTapdStatus from './toolFuns/change-tapd-status'
@@ -13,26 +13,32 @@ const App = () => {
 
   const [loading, setLoading] = useState(false)
 
+  const [spendToday, setSpendToday] = useState("")
+
   // 拖动
   useDrag('drag-box')
 
   const promiseLoadingFun = (fun) => {
     return async (...args) => {
       setLoading(true)
-      await fun(...args)
+      const res = await fun(...args)
       setLoading(false)
+      return res
     }
   }
 
+  useEffect(() => {
+    // 获取今日消费
+    const getSpendToday = promiseLoadingFun(copySpendReport)
+    getSpendToday({
+      type: 'today',
+      isCopy: false
+    }).then((res) => {
+      setSpendToday(res || '暂无数据')
+    })
+  }, [])
+
   const toolBtns = [
-    {
-      name: '查看日报',
-      fun: copySpendReport,
-      args: {
-        type: 'today',
-        isCopy: false
-      }
-    },
     {
       name: '获取日报',
       fun: copySpendReport,
@@ -76,6 +82,8 @@ const App = () => {
                       toolBtns.map(_ => <Btn key={_.name} name={_.name} onClick={() => promiseLoadingFun(_.fun)(_.args)} />)
                     }
                   </div>
+
+                  <div className={s.spendToday} dangerouslySetInnerHTML={{ __html: spendToday.replace(/\r\n/g, '<br />') }}></div>
                 </div>
               </>
             )
